@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Card Component - Demo</title>
+
+    <!-- Component CSS -->
+    <link rel="stylesheet" href="../css/interactive-card.css" />
+
+    <!-- Demo page styles -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+        transition: background 0.3s ease;
+      }
+
+      /* Dark theme gradient */
+      [data-theme="dark"] body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      }
+
+      .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .demo-header {
+        text-align: center;
+        color: white;
+        margin-bottom: 3rem;
+      }
+
+      .demo-header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .demo-header p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+      }
+
+      .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .demo-controls {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-top: 3rem;
+        color: white;
+      }
+
+      .demo-controls h2 {
+        margin-bottom: 1rem;
+      }
+
+      .demo-controls button {
+        background: white;
+        color: #667eea;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin: 0.5rem;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .demo-controls button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .demo-controls button:active {
+        transform: translateY(0);
+      }
+
+      .code-section {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+        overflow-x: auto;
+      }
+
+      .code-section pre {
+        color: #a8e6cf;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Theme Toggle Button -->
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      aria-label="Toggle dark/light theme"
+    >
+      <span class="theme-toggle-icon">🌙</span>
+    </button>
+
+    <div class="demo-container">
+      <!-- Header -->
+      <header class="demo-header">
+        <h1>🎨 Interactive Card Component</h1>
+        <p>A modern, reusable JavaScript component with smooth animations</p>
+      </header>
+
+      <!-- Cards Container -->
+      <div class="cards-container">
+        <!-- Cards will be dynamically inserted here -->
+        <div id="card-1"></div>
+        <div id="card-2"></div>
+        <div id="card-3"></div>
+      </div>
+
+      <!-- Demo Controls -->
+      <div class="demo-controls">
+        <h2>📝 Usage Instructions</h2>
+        <p>Click on any card to flip it. Hover to see the elevation effect.</p>
+
+        <div style="margin-top: 1.5rem">
+          <button onclick="createNewCard()">➕ Add New Card</button>
+          <button onclick="updateFirstCard()">🔄 Update First Card</button>
+          <button onclick="removeLastCard()">❌ Remove Last Card</button>
+        </div>
+
+        <div class="code-section">
+          <h3 style="margin-bottom: 0.5rem">How to use this component:</h3>
+          <pre>
+// 1. Include the CSS and JS files
+&lt;link rel="stylesheet" href="css/interactive-card.css"&gt;
+&lt;script src="components/interactive-card.js"&gt;&lt;/script&gt;
+
+// 2. Create a container in your HTML
+&lt;div id="my-card-container"&gt;&lt;/div&gt;
+
+// 3. Initialize the component in JavaScript
+const myCard = new InteractiveCard({
+    containerId: 'my-card-container',
+    title: 'My Card',
+    description: 'This is a custom card!',
+    icon: '🚀',
+    primaryColor: '#6366f1',
+    secondaryColor: '#8b5cf6'
+});
+
+// 4. Optional: Add theme toggle
+const themeManager = new ThemeManager();
+document.getElementById('toggleBtn').onclick = () => {
+    themeManager.toggleTheme();
+};
+                </pre
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Component JavaScript -->
+    <script src="../components/interactive-card.js"></script>
+
+    <!-- Demo Script -->
+    <script>
+      /**
+       * Demo Script
+       * Demonstrates how to use the InteractiveCard component
+       * with Dark/Light theme support
+       */
+
+      // Initialize theme manager
+      let themeManager;
+
+      // Store card instances for demo purposes
+      let cardInstances = [];
+
+      // Initialize demo cards on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        initializeTheme();
+        initializeDemoCards();
+      });
+
+      /**
+       * Initialize theme manager and toggle button
+       */
+      function initializeTheme() {
+        // Create theme manager instance
+        themeManager = new ThemeManager();
+
+        // Update toggle button icon based on current theme
+        updateThemeIcon();
+
+        // Add event listener to theme toggle button
+        const toggleButton = document.getElementById("themeToggle");
+        if (toggleButton) {
+          toggleButton.addEventListener("click", () => {
+            themeManager.toggleTheme();
+            updateThemeIcon();
+
+            // Add rotation animation
+            toggleButton.style.transform = "scale(0.9) rotate(360deg)";
+            setTimeout(() => {
+              toggleButton.style.transform = "";
+            }, 300);
+          });
+        }
+      }
+
+      /**
+       * Update theme toggle button icon
+       */
+      function updateThemeIcon() {
+        const iconElement = document.querySelector(".theme-toggle-icon");
+        if (iconElement) {
+          iconElement.textContent =
+            themeManager.getTheme() === "light" ? "🌙" : "☀️";
+        }
+      }
+
+      /**
+       * Initialize the demo cards with different configurations
+       */
+      function initializeDemoCards() {
+        // Card 1: Design themed
+        const card1 = new InteractiveCard({
+          containerId: "card-1",
+          title: "Creative Design",
+          description:
+            "Beautiful UI components with smooth animations and modern styling.",
+          icon: "🎨",
+          primaryColor: "#ec4899",
+          secondaryColor: "#f43f5e",
+        });
+        cardInstances.push(card1);
+
+        // Card 2: Development themed
+        const card2 = new InteractiveCard({
+          containerId: "card-2",
+          title: "Clean Code",
+          description:
+            "Well-structured, reusable components following best practices.",
+          icon: "💻",
+          primaryColor: "#3b82f6",
+          secondaryColor: "#2563eb",
+        });
+        cardInstances.push(card2);
+
+        // Card 3: Performance themed
+        const card3 = new InteractiveCard({
+          containerId: "card-3",
+          title: "Fast Performance",
+          description:
+            "Optimized animations using CSS transforms and transitions.",
+          icon: "⚡",
+          primaryColor: "#10b981",
+          secondaryColor: "#059669",
+        });
+        cardInstances.push(card3);
+      }
+
+      /**
+       * Create a new card dynamically
+       */
+      function createNewCard() {
+        const cardId = `card-${Date.now()}`;
+        const container = document.createElement("div");
+        container.id = cardId;
+        document.querySelector(".cards-container").appendChild(container);
+
+        const randomColors = [
+          { primary: "#f59e0b", secondary: "#d97706" },
+          { primary: "#8b5cf6", secondary: "#7c3aed" },
+          { primary: "#06b6d4", secondary: "#0891b2" },
+        ];
+
+        const colors =
+          randomColors[Math.floor(Math.random() * randomColors.length)];
+
+        const newCard = new InteractiveCard({
+          containerId: cardId,
+          title: "New Card",
+          description: "Dynamically created card!",
+          icon: "🌟",
+          primaryColor: colors.primary,
+          secondaryColor: colors.secondary,
+        });
+
+        cardInstances.push(newCard);
+      }
+
+      /**
+       * Update the content of the first card
+       */
+      function updateFirstCard() {
+        if (cardInstances.length > 0) {
+          cardInstances[0].updateContent({
+            title: "Updated Card",
+            description: "Content has been updated!",
+            icon: "🔄",
+          });
+        }
+      }
+
+      /**
+       * Remove the last card from the page
+       */
+      function removeLastCard() {
+        if (cardInstances.length > 0) {
+          const lastCard = cardInstances.pop();
+          lastCard.destroy();
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>İletişim · Musa ALAHMED</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="logo"
+          >Musa ALAHMED<span class="dot">•</span></a
+        >
+        <nav class="menu" aria-label="Ana menü">
+          <a class="nav-link" href="index.html"
+            ><i class="fa-solid fa-house"></i
+            ><span data-i18n="home">Ana Sayfa</span></a
+          >
+          <a class="nav-link" href="hakkimda.html"
+            ><i class="fa-solid fa-user"></i
+            ><span data-i18n="about">Hakkımda</span></a
+          >
+          <a class="nav-link" href="egitim.html"
+            ><i class="fa-solid fa-graduation-cap"></i
+            ><span data-i18n="education">Eğitim</span></a
+          >
+          <a class="nav-link" href="deneyim.html"
+            ><i class="fa-solid fa-briefcase"></i
+            ><span data-i18n="experience">Deneyim</span></a
+          >
+          <a class="nav-link" href="portfolyo.html"
+            ><i class="fa-solid fa-folder-open nav-icon-portfolio"></i
+            ><span data-i18n="portfolio">Portföy</span></a
+          >
+          <a class="nav-link active" href="iletisim.html"
+            ><i class="fa-solid fa-envelope"></i
+            ><span data-i18n="contact">İletişim</span></a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <h1 class="section-title" data-i18n="contactTitle">İletişim</h1>
+          <div class="contact-grid">
+            <form class="card form" action="#" method="post">
+              <div class="form-row">
+                <label for="ad" data-i18n="nameLabel">Ad</label>
+                <input
+                  type="text"
+                  id="ad"
+                  name="ad"
+                  data-i18n="namePlaceholder"
+                  placeholder="Adınız"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="eposta" data-i18n="emailLabel">E-posta</label>
+                <input
+                  type="email"
+                  id="eposta"
+                  name="eposta"
+                  data-i18n="emailPlaceholder"
+                  placeholder="ornek@mail.com"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="konu" data-i18n="subjectLabel">Konu</label>
+                <input
+                  type="text"
+                  id="konu"
+                  name="konu"
+                  data-i18n="subjectPlaceholder"
+                  placeholder="Mesaj konusu"
+                  required
+                />
+              </div>
+              <div class="form-row">
+                <label for="mesaj" data-i18n="messageLabel">Mesaj</label>
+                <textarea
+                  id="mesaj"
+                  name="mesaj"
+                  rows="6"
+                  data-i18n="messagePlaceholder"
+                  placeholder="Mesajınızı yazın"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit" data-i18n="send">
+                  Gönder
+                </button>
+              </div>
+            </form>
+
+            <div class="contact-cards">
+              <article class="card contact-card">
+                <div class="contact-icon">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <h3 class="card-title">E-posta</h3>
+                  <p class="muted">
+                    <a href="mailto:musaalahmed4@gmail.com"
+                      >musaalahmed4@gmail.com</a
+                    >
+                  </p>
+                </div>
+              </article>
+              <article class="card contact-card">
+                <div class="contact-icon">
+                  <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div>
+                  <h3 class="card-title">Instagram</h3>
+                  <p class="muted">@musabyte</p>
+                </div>
+              </article>
+              <article class="card contact-card">
+                <div class="contact-icon">
+                  <i class="fa-brands fa-linkedin"></i>
+                </div>
+                <div>
+                  <h3 class="card-title">Linkedin</h3>
+                  <p class="muted">Musa Al-Ahmed</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-col">
+          <div class="logo">Musa ALAHMED<span class="dot">•</span></div>
+          <p class="muted small" data-i18n="footerDesc">
+            Hayallerimi kodlarla ve tasarımla gerçeğe dönüştüren bir yazılım
+            mühendisi.
+          </p>
+          <p class="muted small">© 2025 Musa ALAHMED</p>
+          <p class="muted small">
+            <a
+              href="https://github.com/musaalahmed1"
+              target="_blank"
+              rel="noopener"
+              style="color: #9eff57; font-weight: 500"
+              ><i class="fa-brands fa-github"></i> GitHub: musaalahmed1</a
+            >
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title" data-i18n="links">Bağlantılar</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" data-i18n="home">Ana Sayfa</a></li>
+            <li><a href="hakkimda.html" data-i18n="about">Hakkımda</a></li>
+            <li><a href="egitim.html" data-i18n="education">Eğitim</a></li>
+            <li><a href="deneyim.html" data-i18n="experience">Deneyim</a></li>
+            <li><a href="portfolyo.html" data-i18n="portfolio">Portföy</a></li>
+            <li><a href="iletisim.html" data-i18n="contact">İletişim</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title" data-i18n="contactFooter">İletişim</h4>
+          <ul class="contact-list">
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:musaalahmed4@gmail.com">musaalahmed4@gmail.com</a>
+            </li>
+            <li>
+              <i class="fa-brands fa-instagram"></i> <a href="#">@musabyte</a>
+            </li>
+            <li>
+              <i class="fa-brands fa-linkedin"></i>
+              <a href="#">Musa Al-Ahmed</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script src="js/theme.js"></script>
+    <!-- Language Toggle Script -->
+    <script src="js/language.js"></script>
+    <!-- Contact Form Script -->
+    <script src="js/contact.js"></script>
+    <!-- Animated Lines Background -->
+    <script src="js/animated-lines.js"></script>
+  </body>
+</html>

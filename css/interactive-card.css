@@ -1,0 +1,316 @@
+/**
+ * Interactive Card Component Styles
+ * 
+ * Features:
+ * - CSS custom properties for easy customization
+ * - 3D flip animation using CSS transforms
+ * - Smooth transitions for all interactions
+ * - Hover effects with shadows and scale
+ * - Responsive design
+ * - Dark/Light theme support
+ */
+
+/* ==========================================
+   CSS Custom Properties (Variables)
+   ========================================== */
+:root {
+  --card-width: 320px;
+  --card-height: 400px;
+  --card-border-radius: 16px;
+  --card-padding: 2rem;
+  --transition-speed: 0.6s;
+  --hover-scale: 1.05;
+  --click-scale: 0.95;
+
+  /* Light Theme Colors */
+  --bg-color: #f8f9fa;
+  --text-color: #212529;
+  --card-text-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-hover-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-color: #1a1a2e;
+  --text-color: #eaeaea;
+  --card-text-color: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Body theme transition */
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* ==========================================
+   Card Wrapper
+   ========================================== */
+.interactive-card-wrapper {
+  perspective: 1000px; /* Creates 3D space for flip effect */
+  width: var(--card-width);
+  height: var(--card-height);
+  margin: 1rem;
+  display: inline-block;
+}
+
+/* ==========================================
+   Main Card Element
+   ========================================== */
+.interactive-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-speed) ease-in-out;
+  transform-style: preserve-3d; /* Enables 3D transformations */
+  cursor: pointer;
+
+  /* Default colors - can be overridden via inline styles */
+  --primary-color: #6366f1;
+  --secondary-color: #8b5cf6;
+}
+
+/* ==========================================
+   Card Faces (Front & Back)
+   ========================================== */
+.interactive-card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back side when not visible */
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* Gradient background */
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+
+  /* Box shadow for depth */
+  box-shadow:
+    0 4px 6px var(--shadow-color),
+    0 1px 3px var(--shadow-color);
+
+  /* Smooth transition for all properties */
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Front Face */
+.interactive-card__face--front {
+  /* Front face is visible by default */
+  transform: rotateY(0deg);
+}
+
+/* Back Face */
+.interactive-card__face--back {
+  /* Back face is initially rotated 180 degrees */
+  transform: rotateY(180deg);
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+
+/* ==========================================
+   Card Content Elements
+   ========================================== */
+.interactive-card__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  /* Subtle animation on icon */
+  animation: float 3s ease-in-out infinite;
+}
+
+.interactive-card__title {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-card__description {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-card__hint {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* ==========================================
+   Hover State
+   ========================================== */
+.interactive-card.is-hovering .interactive-card__face {
+  /* Elevate shadow on hover */
+  box-shadow:
+    0 20px 40px var(--shadow-hover-color),
+    0 10px 20px var(--shadow-color);
+
+  /* Slight scale up */
+  transform: scale(var(--hover-scale));
+}
+
+/* Maintain rotation for back face during hover */
+.interactive-card.is-hovering .interactive-card__face--back {
+  transform: rotateY(180deg) scale(var(--hover-scale));
+}
+
+/* ==========================================
+   Click State
+   ========================================== */
+.interactive-card.is-clicked {
+  /* Quick scale down on click for tactile feedback */
+  animation: clickPulse 0.6s ease;
+}
+
+/* ==========================================
+   Flipped State
+   ========================================== */
+.interactive-card.is-flipped {
+  /* Rotate 180 degrees to show back face */
+  transform: rotateY(180deg);
+}
+
+/* ==========================================
+   Keyframe Animations
+   ========================================== */
+
+/* Floating animation for icon */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Click pulse animation */
+@keyframes clickPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(var(--click-scale));
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+@media (max-width: 768px) {
+  :root {
+    --card-width: 280px;
+    --card-height: 360px;
+    --card-padding: 1.5rem;
+  }
+
+  .interactive-card__icon {
+    font-size: 3rem;
+  }
+
+  .interactive-card__title {
+    font-size: 1.5rem;
+  }
+
+  .interactive-card__description {
+    font-size: 0.9rem;
+  }
+}
+
+/* ==========================================
+   Accessibility
+   ========================================== */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .interactive-card,
+  .interactive-card__face,
+  .interactive-card__icon {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Focus state for keyboard navigation */
+.interactive-card:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 4px;
+}
+
+/* ==========================================
+   Theme Toggle Button
+   ========================================== */
+.theme-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--shadow-hover-color);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1) rotate(15deg);
+  box-shadow: 0 6px 20px var(--shadow-hover-color);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* Theme toggle animation */
+.theme-toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(180deg);
+}
