@@ -31,8 +31,7 @@ Personal portfolio website — a static site built with HTML, CSS, and JavaScrip
 Clone the repository and open `index.html` in a browser:
 
 ```bash
-git clone git@github.com:MUSAALAHMED4/.git
-```
+git@github.com:MUSAALAHMED4/portfolio-website.git```
 
 ## Contact
 
